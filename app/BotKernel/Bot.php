@@ -3,7 +3,6 @@
 namespace App\BotKernel;
 
 use App\BotKernel\Handlers\HandlerDecorator;
-use App\BotKernel\Handlers\Start;
 use App\BotKernel\MessengerContexts\IMessengerContext;
 
 class Bot
@@ -13,10 +12,21 @@ class Bot
      */
     private $handlers = [];
 
+    /**
+     * TODO: Bot Middleware
+     *
+     * @var
+     */
     private $middleware;
 
-    private $contextService;
-
+    /**
+     * Add message handler
+     *
+     * @param mixed $handler
+     * @param $pattern
+     * @param null $context
+     * @return $this
+     */
     public function addHandler($handler, $pattern, $context = null)
     {
         $this->handlers[] = new HandlerDecorator($handler, $pattern, $context);
@@ -25,6 +35,8 @@ class Bot
     }
 
     /**
+     * Handle message for bot
+     *
      * @param IMessengerContext $messenger
      * @return string
      * @throws \Exception
