@@ -3,7 +3,6 @@
 namespace App;
 
 use App\BotKernel\User\IUser;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -55,6 +54,6 @@ class User extends Authenticatable implements IUser
 
     public function getPayload()
     {
-        return json_encode($this->payload);
+        return json_decode($this->payload);
     }
 }

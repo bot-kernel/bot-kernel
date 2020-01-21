@@ -28,7 +28,7 @@ class HandlerDecorator implements IMessageHandler
      * @param $filter
      * @param $context1
      */
-    public function __construct(string $handler, $pattern, $context)
+    public function __construct($handler, $pattern, $context)
     {
         $this->handler = $handler;
         $this->context = $context;
@@ -40,13 +40,17 @@ class HandlerDecorator implements IMessageHandler
      */
     public function handle(IMessengerContext $messenger)
     {
+        if ($this->handler instanceof \Closure) {
+            return app()->call($this->handler, ['messenger' => $messenger]);
+        }
+
         $handler = resolve($this->handler);
 
         if ($handler instanceof IMessageHandler) {
             return $handler->handle($messenger);
-        } else {
-            throw new \Exception('Invalid message handler type');
         }
+
+        throw new \Exception('Invalid message handler type');
     }
 
     /**

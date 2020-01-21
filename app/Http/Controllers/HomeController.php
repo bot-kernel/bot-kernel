@@ -48,7 +48,12 @@ class HomeController extends Controller
                     return substr($context->getMessage(), 0, strlen('/rev')) === '/rev';
                 })
                 ->addHandler(AskName::class, '/name')
-                ->addHandler(SetName::class, true, 'set_name');
+                ->addHandler(SetName::class, true, 'set_name')
+                ->addHandler(function (IMessengerContext $messenger) {
+
+                    return $messenger->getUser()->getPayload()->name ?? 'Anonymous';
+
+                }, '/me');
 
             $messageBack = $bot->handleMessage($messenger);
         }
