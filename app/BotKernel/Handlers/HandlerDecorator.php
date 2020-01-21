@@ -23,6 +23,7 @@ class HandlerDecorator implements IMessageHandler
 
     /**
      * HandlerDecorator constructor.
+     *
      * @param string $handler
      * @param $context
      * @param $filter
@@ -36,6 +37,10 @@ class HandlerDecorator implements IMessageHandler
     }
 
     /**
+     * Handle message to bot
+     *
+     * @param IMessengerContext $messenger
+     * @return mixed
      * @throws \Exception
      */
     public function handle(IMessengerContext $messenger)
@@ -54,6 +59,8 @@ class HandlerDecorator implements IMessageHandler
     }
 
     /**
+     * Check if the handler should process this message
+     *
      * @param IMessengerContext $context
      * @return bool
      */
@@ -82,6 +89,8 @@ class HandlerDecorator implements IMessageHandler
     }
 
     /**
+     * Get handler context
+     *
      * @return mixed
      */
     public function getContext()
