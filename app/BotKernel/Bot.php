@@ -50,10 +50,7 @@ class Bot
         $messageBack = null;
 
         foreach ($this->handlers as $handler) {
-            if ($userContext !== $handler->getContext()) {
-                continue;
-            }
-            if (!$handler->match($messenger)) {
+            if ($userContext !== $handler->getContext() || !$handler->match($messenger)) {
                 continue;
             }
 
